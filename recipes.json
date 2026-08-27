@@ -1,0 +1,66 @@
+[
+  {
+    "title": "60 Stunden Brot mit Sauerteig",
+    "author": "Marcel Paa",
+    "category": "Backen",
+    "sourceUrl": "https://www.marcelpaa.com/rezepte/60-stunden-brot-mit-sauerteig/",
+    "notes": "Insgesamt ca. 48-50 Std. kalte Stockgare (im Kühlschrank) + 2 Std. bei Raumtemperatur davor, Stückgare 3-4 Std. Backtemperatur 250 °C fallend auf 220 °C, Backdauer ca. 60-70 Min. Quelle: marcelpaa.com",
+    "baseServings": 1,
+    "servingsUnit": "Brot",
+    "ingredients": [
+      { "amount": 700, "unit": "g", "name": "Wasser, kalt" },
+      { "amount": 600, "unit": "g", "name": "Halbweissmehl (Weizenmehl Type 812)" },
+      { "amount": 400, "unit": "g", "name": "Ruchmehl (Weizenmehl Type 1050)" },
+      { "amount": null, "unit": "100-130 g", "name": "aktiver Sauerteig" },
+      { "amount": 25, "unit": "g", "name": "Salz" }
+    ],
+    "steps": [
+      "Brotteig: Wasser, Mehl und Sauerteig 3-4 Min. verkneten.",
+      "Salz zugeben, dann ca. 15-20 Min. bei mittlerer Geschwindigkeit weiterkneten.",
+      "Zugedeckt ca. 2 Std. bei Raumtemperatur reifen lassen.",
+      "Einmal dehnen und falten.",
+      "Danach 2 Tage (ca. 48 Std.) abgedeckt in den Kühlschrank – dabei 1-3x täglich dehnen und falten, dazwischen mind. 3-4 Std. Ruhe.",
+      "Formen: 3-4 Std. vor dem Formen nochmals dehnen und falten, dann bei Raumtemperatur akklimatisieren lassen.",
+      "Teig rundwirken/straff aufziehen, dabei die Luftblasen im Teig erhalten.",
+      "Auf bemehltem Tuch zugedeckt 2 Std. ruhen lassen.",
+      "Oberfläche bemehlen, mit einem Rollstab kreuzweise tief eindrücken.",
+      "Auf ein mit Backpapier belegtes Blech setzen, zugedeckt weitere 1-2 Std. bei Raumtemperatur ruhen lassen. Ofen auf 250 °C Ober-/Unterhitze vorheizen.",
+      "Backen: Teigling leicht bemehlen, Blech in den vorgeheizten Ofen schieben.",
+      "Ofen bedampfen, Temperatur auf 220 °C reduzieren, 20 Min. backen.",
+      "Ofentür kurz öffnen zum Dampfablassen, weitere 45-50 Min. fertig backen."
+    ]
+  },
+  {
+    "title": "Auffrischbrot Ruchmehl mit Saaten",
+    "author": "",
+    "category": "Backen",
+    "sourceUrl": "",
+    "notes": "Beim letzten Mal vergessen, die Temperatur rechtzeitig runterzudrehen – dadurch etwas dunkler geworden als geplant, hat aber trotzdem gut geschmeckt.",
+    "baseServings": 1,
+    "servingsUnit": "Brot (~1 kg roh)",
+    "hydration": 70,
+    "ingredients": [
+      { "amount": 40, "unit": "g", "name": "Kürbiskerne (Quellstück, trocken angeröstet)" },
+      { "amount": 40, "unit": "g", "name": "Sonnenblumenkerne (Quellstück, trocken angeröstet)" },
+      { "amount": 7, "unit": "g", "name": "Flohsamenschalen (Quellstück)" },
+      { "amount": 120, "unit": "g", "name": "Wasser, heiß (für Quellstück)" },
+      { "amount": 500, "unit": "g", "name": "Ruchmehl" },
+      { "amount": 350, "unit": "g", "name": "Wasser, ca. 15 °C (davon 50 g zur Bassinage zurückhalten)" },
+      { "amount": 120, "unit": "g", "name": "Anstellgut, älter" },
+      { "amount": 1.5, "unit": "g", "name": "Frischhefe (oder 0,5 g Trockenhefe)" },
+      { "amount": 11, "unit": "g", "name": "Salz" }
+    ],
+    "steps": [
+      "Tag 1, 10:00 Uhr: Kürbis- und Sonnenblumenkerne 3 Min. trocken anrösten, mit Flohsamenschalen und dem heißen Wasser zum Quellstück ansetzen. Parallel Autolyse ansetzen: Ruchmehl mit 320 g Wasser kurz vermischen und abdecken.",
+      "10:30 Uhr: Hauptteig kneten – Autolyse, Anstellgut, Hefe, Salz und Quellstück zugeben, 5 Min. langsam, dann 5–7 Min. zügig kneten. Die zurückgehaltenen 30 g Wasser (Bassinage) am Ende einarbeiten. Zielteigtemperatur 24 °C.",
+      "11:00 Uhr: Stockgare bei Raumtemperatur (ca. 22 °C) in einer geölten Wanne.",
+      "11:30, 12:15, 13:00 und 13:45 Uhr: jeweils einmal dehnen und falten.",
+      "14:30 Uhr: rund vorformen, 15 Min. Bench Rest (entspannen lassen).",
+      "14:50 Uhr: endgültig formen, mit Schluss nach oben in einen bemehlten Gärkorb legen.",
+      "15:00 Uhr: in den Kühlschrank (4–5 °C) für ca. 16 Std. Übernachtgare.",
+      "Am nächsten Tag: Gusseisentopf 30 Min. bei 250 °C vorheizen.",
+      "Teig direkt aus dem Kühlschrank in den heißen Topf stürzen und einschneiden.",
+      "30 Min. mit Deckel bei 230 °C backen, danach 25 Min. ohne Deckel bei 210 °C fertig backen (Temperatur nicht vergessen runterzudrehen!)."
+    ]
+  }
+]
