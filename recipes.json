@@ -8,11 +8,31 @@
     "baseServings": 1,
     "servingsUnit": "Brot",
     "ingredients": [
-      { "amount": 700, "unit": "g", "name": "Wasser, kalt" },
-      { "amount": 600, "unit": "g", "name": "Halbweissmehl (Weizenmehl Type 812)" },
-      { "amount": 400, "unit": "g", "name": "Ruchmehl (Weizenmehl Type 1050)" },
-      { "amount": null, "unit": "100-130 g", "name": "aktiver Sauerteig" },
-      { "amount": 25, "unit": "g", "name": "Salz" }
+      {
+        "amount": 700,
+        "unit": "g",
+        "name": "Wasser, kalt"
+      },
+      {
+        "amount": 600,
+        "unit": "g",
+        "name": "Halbweissmehl (Weizenmehl Type 812)"
+      },
+      {
+        "amount": 400,
+        "unit": "g",
+        "name": "Ruchmehl (Weizenmehl Type 1050)"
+      },
+      {
+        "amount": null,
+        "unit": "100-130 g",
+        "name": "aktiver Sauerteig"
+      },
+      {
+        "amount": 25,
+        "unit": "g",
+        "name": "Salz"
+      }
     ],
     "steps": [
       "Brotteig: Wasser, Mehl und Sauerteig 3-4 Min. verkneten.",
@@ -28,7 +48,8 @@
       "Backen: Teigling leicht bemehlen, Blech in den vorgeheizten Ofen schieben.",
       "Ofen bedampfen, Temperatur auf 220 °C reduzieren, 20 Min. backen.",
       "Ofentür kurz öffnen zum Dampfablassen, weitere 45-50 Min. fertig backen."
-    ]
+    ],
+    "timeOverview": "Ca. 60 Std. gesamt: Tag 1 ~30 Min. aktiv + 2 Std. Reifen bei Raumtemp., dann 2 Tage (~48 Std.) im Kühlschrank mit kurzen Dehn-&-Falt-Handgriffen 1-3×/Tag. Am Backtag ~1 Std. Formen/Ruhe + ca. 70 Min. Backen."
   },
   {
     "title": "Auffrischbrot Ruchmehl mit Saaten",
@@ -40,15 +61,51 @@
     "servingsUnit": "Brot (~1 kg roh)",
     "hydration": 70,
     "ingredients": [
-      { "amount": 40, "unit": "g", "name": "Kürbiskerne (Quellstück, trocken angeröstet)" },
-      { "amount": 40, "unit": "g", "name": "Sonnenblumenkerne (Quellstück, trocken angeröstet)" },
-      { "amount": 7, "unit": "g", "name": "Flohsamenschalen (Quellstück)" },
-      { "amount": 120, "unit": "g", "name": "Wasser, heiß (für Quellstück)" },
-      { "amount": 500, "unit": "g", "name": "Ruchmehl" },
-      { "amount": 350, "unit": "g", "name": "Wasser, ca. 15 °C (davon 50 g zur Bassinage zurückhalten)" },
-      { "amount": 120, "unit": "g", "name": "Anstellgut, älter" },
-      { "amount": 1.5, "unit": "g", "name": "Frischhefe (oder 0,5 g Trockenhefe)" },
-      { "amount": 11, "unit": "g", "name": "Salz" }
+      {
+        "amount": 40,
+        "unit": "g",
+        "name": "Kürbiskerne (Quellstück, trocken angeröstet)"
+      },
+      {
+        "amount": 40,
+        "unit": "g",
+        "name": "Sonnenblumenkerne (Quellstück, trocken angeröstet)"
+      },
+      {
+        "amount": 7,
+        "unit": "g",
+        "name": "Flohsamenschalen (Quellstück)"
+      },
+      {
+        "amount": 120,
+        "unit": "g",
+        "name": "Wasser, heiß (für Quellstück)"
+      },
+      {
+        "amount": 500,
+        "unit": "g",
+        "name": "Ruchmehl"
+      },
+      {
+        "amount": 350,
+        "unit": "g",
+        "name": "Wasser, ca. 15 °C (davon 50 g zur Bassinage zurückhalten)"
+      },
+      {
+        "amount": 120,
+        "unit": "g",
+        "name": "Anstellgut, älter"
+      },
+      {
+        "amount": 1.5,
+        "unit": "g",
+        "name": "Frischhefe (oder 0,5 g Trockenhefe)"
+      },
+      {
+        "amount": 11,
+        "unit": "g",
+        "name": "Salz"
+      }
     ],
     "steps": [
       "Tag 1, 10:00 Uhr: Kürbis- und Sonnenblumenkerne 3 Min. trocken anrösten, mit Flohsamenschalen und dem heißen Wasser zum Quellstück ansetzen. Parallel Autolyse ansetzen: Ruchmehl mit 320 g Wasser kurz vermischen und abdecken.",
@@ -61,6 +118,7 @@
       "Am nächsten Tag: Gusseisentopf 30 Min. bei 250 °C vorheizen.",
       "Teig direkt aus dem Kühlschrank in den heißen Topf stürzen und einschneiden.",
       "30 Min. mit Deckel bei 230 °C backen, danach 25 Min. ohne Deckel bei 210 °C fertig backen (Temperatur nicht vergessen runterzudrehen!)."
-    ]
+    ],
+    "timeOverview": "Tag 1: ca. 5 Std. aktive Zeit (10:00-15:00 Uhr, inkl. 4x Dehnen & Falten alle 45-75 Min.), danach über Nacht (~16 Std.) im Kühlschrank. Tag 2: ca. 1,5 Std. (Ofen vorheizen + Backen)."
   }
 ]
