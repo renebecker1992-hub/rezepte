@@ -168,6 +168,21 @@ function Camera({ size, ...p }) {
     </svg>
   );
 }
+function CheckCircle({ size, checked, ...p }) {
+  if (checked) {
+    return (
+      <svg {...iconProps(size, { ...p, fill: "currentColor", stroke: "none" })}>
+        <circle cx="12" cy="12" r="10" />
+        <path d="M7.5 12.5l3 3 6-6.5" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+  return (
+    <svg {...iconProps(size, p)}>
+      <circle cx="12" cy="12" r="9" />
+    </svg>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /* Design tokens                                                       */
@@ -340,52 +355,74 @@ function calcHydration(ingredients) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Rezept-Skalierung: nach Menge (Portionen), nach Teigmenge oder nach  */
-/* Hydration – alle drei rechnen live und rein anzeige-seitig, ohne    */
-/* die gespeicherten Basiswerte des Rezepts zu verändern.              */
+/* Rezept-Skalierung: "Menge" (flourFactor) und "Hydration" sind zwei   */
+/* unabhängige Regler. Menge/Teigmenge skalieren Mehl + alles außer     */
+/* Wasser proportional; Hydration bestimmt NUR die Wassermenge relativ  */
+/* zur (bereits skalierten) Mehlmenge. Keiner der Regler setzt den      */
+/* anderen zurück – Teigmenge ist lediglich eine zweite Eingabe für     */
+/* denselben "Menge"-Faktor, rückgerechnet über die aktuelle Hydration. */
 /* ------------------------------------------------------------------ */
 
-// Liefert je Zutat einen scaledAmount (Zahl oder null), abhängig vom
-// gewählten Skalierungsmodus. "servings"/"doughWeight" skalieren alles
-// proportional; "hydration" verändert NUR die Wasser-Zutat(en) und lässt
-// den Rest unverändert (klassisches "nur die Hydration anpassen").
-function computeScaledIngredients(recipe, mode, value) {
+// Ordnet eine Zutat einem Eimer zu: "flour"/"water" nur für UNGRUPPIERTE
+// Zutaten des Hauptteigs (per Name erkannt). Zutaten, die als Teil eines
+// Vorteigs/Quellstücks/etc. gekennzeichnet sind (siehe extractIngredientGroup),
+// zählen bewusst NICHT zur Haupt-Hydration – sie skalieren nur mit der Menge,
+// unabhängig vom Hydration-Regler (z. B. Quellstück-Wasser für Saaten).
+function classifyIngredient(ing) {
+  const g = ingredientGrams(ing);
+  if (g == null) return { bucket: "skip", grams: null };
+  if (extractIngredientGroup(ing.name)) return { bucket: "other", grams: g };
+  const name = (ing.name || "").toLowerCase();
+  if (name.includes("mehl")) return { bucket: "flour", grams: g };
+  if (name.includes("wasser")) return { bucket: "water", grams: g };
+  return { bucket: "other", grams: g };
+}
+
+// Basis-Summen (unskaliert) aus den Original-Zutaten.
+function baseGramsBreakdown(ingredients) {
+  let flourTotal = 0;
+  let waterTotal = 0;
+  let otherTotal = 0;
+  for (const ing of ingredients || []) {
+    const { bucket, grams } = classifyIngredient(ing);
+    if (grams == null) continue;
+    if (bucket === "flour") flourTotal += grams;
+    else if (bucket === "water") waterTotal += grams;
+    else otherTotal += grams;
+  }
+  return { flourTotal, waterTotal, otherTotal };
+}
+
+// Liefert je Zutat einen scaledAmount, gegeben den Mengen-Faktor
+// (flourFactor, relativ zur Basisrezeptgröße) und eine Ziel-Hydration
+// (Prozent, oder null wenn nicht anwendbar/gewünscht).
+function computeScaledIngredientsV2(recipe, flourFactor, targetHydration) {
   const base = recipe.ingredients || [];
-  const num = Number(value);
+  const { flourTotal, waterTotal } = baseGramsBreakdown(base);
+  const useHydration = targetHydration != null && flourTotal > 0;
+  const scaledFlourTotal = flourTotal * flourFactor;
+  const targetWaterTotal = useHydration ? (targetHydration / 100) * scaledFlourTotal : null;
 
-  if (mode === "doughWeight") {
-    const baseWeight = recipe.doughWeight ?? calcDoughWeight(base);
-    const factor = baseWeight > 0 && num > 0 ? num / baseWeight : 1;
-    return base.map((i) => ({ ...i, scaledAmount: i.amount != null ? i.amount * factor : null }));
-  }
-
-  if (mode === "hydration") {
-    let flourTotal = 0;
-    let currentWaterTotal = 0;
-    for (const i of base) {
-      const g = ingredientGrams(i);
-      if (g == null) continue;
-      const name = (i.name || "").toLowerCase();
-      if (name.includes("mehl")) flourTotal += g;
-      else if (name.includes("wasser")) currentWaterTotal += g;
-    }
-    const targetWaterTotal = flourTotal > 0 && num >= 0 ? (num / 100) * flourTotal : null;
-    return base.map((i) => {
-      const g = ingredientGrams(i);
-      const isWater = g != null && (i.name || "").toLowerCase().includes("wasser");
-      if (!isWater || targetWaterTotal == null || currentWaterTotal <= 0) {
-        return { ...i, scaledAmount: i.amount };
-      }
-      const share = g / currentWaterTotal;
+  return base.map((ing) => {
+    const { bucket, grams } = classifyIngredient(ing);
+    if (bucket === "water" && useHydration && waterTotal > 0) {
+      const share = grams / waterTotal;
       const newGrams = targetWaterTotal * share;
-      const unit = (i.unit || "").trim().toLowerCase();
-      return { ...i, scaledAmount: unit === "kg" ? newGrams / 1000 : newGrams };
-    });
-  }
+      const unit = (ing.unit || "").trim().toLowerCase();
+      return { ...ing, scaledAmount: unit === "kg" ? newGrams / 1000 : newGrams };
+    }
+    return { ...ing, scaledAmount: ing.amount != null ? ing.amount * flourFactor : null };
+  });
+}
 
-  // mode === "servings" (Standard)
-  const factor = recipe.baseServings > 0 && num > 0 ? num / recipe.baseServings : 1;
-  return base.map((i) => ({ ...i, scaledAmount: i.amount != null ? i.amount * factor : null }));
+// Rechnet aus einer gewünschten Ziel-Teigmenge den passenden flourFactor
+// zurück – unter Beibehaltung der aktuell eingestellten Hydration.
+function solveFlourFactorForDoughWeight(recipe, targetWeight, targetHydration) {
+  const { flourTotal, otherTotal } = baseGramsBreakdown(recipe.ingredients);
+  const h = targetHydration != null ? targetHydration : calcHydration(recipe.ingredients) || 0;
+  const denom = flourTotal * (1 + h / 100) + otherTotal;
+  if (denom <= 0 || !(targetWeight > 0)) return 1;
+  return targetWeight / denom;
 }
 
 // Summiert die scaledAmount-Werte (nur g/kg) zur angezeigten Gesamt-Teigmenge.
@@ -406,22 +443,23 @@ function sumScaledGrams(scaledIngredients) {
   return any ? Math.round(total) : null;
 }
 
-// Errechnet die tatsächliche Hydration aus den aktuell skalierten Mengen –
-// dadurch stimmen die Anzeigewerte in jedem Modus immer exakt überein.
-function scaledHydrationFromList(scaledIngredients) {
-  let water = 0;
-  let flour = 0;
-  for (const i of scaledIngredients) {
-    if (i.scaledAmount == null) continue;
-    const u = (i.unit || "").trim().toLowerCase();
-    const g = u === "kg" ? i.scaledAmount * 1000 : u === "g" ? i.scaledAmount : null;
-    if (g == null) continue;
-    const name = (i.name || "").toLowerCase();
-    if (name.includes("wasser")) water += g;
-    else if (name.includes("mehl")) flour += g;
-  }
-  if (flour <= 0) return null;
-  return Math.round((water / flour) * 1000) / 10;
+// Erkennt einen Tag-Marker am Anfang eines Zubereitungsschritts (z. B.
+// "Tag 1, 10:00 Uhr: ..." oder "Am nächsten Tag: ...") und trennt ihn vom
+// restlichen Text ab, damit er als eigene Überschrift dargestellt werden kann.
+function extractDayMarker(text) {
+  const m = (text || "").match(/^(Tag\s*\d+|Am\s+(?:über)?nächsten\s+Tag)\s*[,:]?\s*/i);
+  if (!m) return null;
+  return { day: m[1].trim(), rest: text.slice(m[0].length).trim() };
+}
+
+// Erkennt eine Teilrezept-Gruppe am Ende eines Zutatennamens in Klammern
+// (z. B. "Kürbiskerne (Quellstück, angeröstet)" oder "Wasser (für Quellstück)")
+// und trennt sie ab, damit gleichartige Zutaten unter einer Zwischen-
+// überschrift gruppiert werden können.
+function extractIngredientGroup(name) {
+  const m = (name || "").match(/\((?:für\s+|zum\s+)?(Quellstück|Hauptteig|Vorteig|Brühstück|Poolish)[^()]*\)\s*$/i);
+  if (!m) return null;
+  return { group: m[1], rest: name.slice(0, m.index).trim() };
 }
 
 // Verkleinert & komprimiert ein Foto clientseitig auf ein Data-URL-JPEG,
@@ -1595,96 +1633,91 @@ function NumericStepper({ value, onChange, step, min, width }) {
   );
 }
 
-function RecipeScaler({ recipe, mode, setMode, value, setValue, displayDoughWeight, displayHydration }) {
+function ScalerRow({ label, value, suffix, step, min, onChange }) {
+  return (
+    <div className="flex items-center gap-2 flex-wrap">
+      <span
+        style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }}
+        className="text-[11px] uppercase tracking-wide w-[5.5rem] shrink-0"
+      >
+        {label}
+      </span>
+      <NumericStepper value={value} onChange={onChange} step={step} min={min} width="w-16" />
+      <span style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-xs">
+        {suffix}
+      </span>
+    </div>
+  );
+}
+
+function RecipeScaler({
+  recipe,
+  flourFactor,
+  displayServings,
+  displayDoughWeight,
+  targetHydration,
+  onServingsChange,
+  onDoughWeightChange,
+  onHydrationChange,
+  onReset,
+}) {
   const doughWeightAvailable = recipe.doughWeight != null || calcDoughWeight(recipe.ingredients) != null;
   const hydrationAvailable = recipe.hydration != null || calcHydration(recipe.ingredients) != null;
-
-  function selectMode(m) {
-    setMode(m);
-    if (m === "servings") setValue(recipe.baseServings);
-    else if (m === "doughWeight") setValue(recipe.doughWeight ?? calcDoughWeight(recipe.ingredients) ?? 1000);
-    else if (m === "hydration") setValue(recipe.hydration ?? calcHydration(recipe.ingredients) ?? 70);
-  }
-
-  const isBase =
-    mode === "servings" && value === recipe.baseServings;
-
-  const pill = (active) =>
-    active
-      ? { background: categoryColor(recipe.category), color: COLORS.card, fontFamily: FONTS.mono }
-      : { border: `1px solid ${COLORS.line}`, color: COLORS.inkSoft, fontFamily: FONTS.mono };
+  const baseHydration = recipe.hydration ?? calcHydration(recipe.ingredients);
+  const isBase = Math.abs(flourFactor - 1) < 1e-6 && targetHydration === baseHydration;
 
   return (
     <div className="mb-1">
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex items-center justify-between mb-2">
         <span style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-[11px] uppercase tracking-wide">
-          Skalieren nach
+          Menge &amp; Teig
         </span>
-        <button onClick={() => selectMode("servings")} className="rk-focus px-2.5 py-1 rounded-full text-xs" style={pill(mode === "servings")}>
-          Menge
-        </button>
-        {doughWeightAvailable && (
-          <button onClick={() => selectMode("doughWeight")} className="rk-focus px-2.5 py-1 rounded-full text-xs" style={pill(mode === "doughWeight")}>
-            Teigmenge
-          </button>
-        )}
-        {hydrationAvailable && (
-          <button onClick={() => selectMode("hydration")} className="rk-focus px-2.5 py-1 rounded-full text-xs" style={pill(mode === "hydration")}>
-            Hydration
-          </button>
-        )}
-      </div>
-
-      <div className="flex items-center flex-wrap gap-2">
-        {mode === "servings" && (
-          <>
-            <NumericStepper value={value} onChange={setValue} step={1} min={1} width="w-14" />
-            <span style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-xs">
-              {recipe.servingsUnit}
-            </span>
-          </>
-        )}
-        {mode === "doughWeight" && (
-          <>
-            <NumericStepper value={value} onChange={setValue} step={50} min={1} width="w-20" />
-            <span style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-xs">
-              g Teig gesamt
-            </span>
-          </>
-        )}
-        {mode === "hydration" && (
-          <>
-            <NumericStepper value={value} onChange={setValue} step={1} min={0} width="w-16" />
-            <span style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-xs">
-              % Hydration (nur Wasser wird angepasst)
-            </span>
-          </>
-        )}
         {!isBase && (
-          <button
-            onClick={() => selectMode("servings")}
-            className="rk-focus text-xs underline"
-            style={{ color: COLORS.accent, fontFamily: FONTS.mono }}
-          >
+          <button onClick={onReset} className="rk-focus text-xs underline" style={{ color: COLORS.accent, fontFamily: FONTS.mono }}>
             zurücksetzen
           </button>
         )}
       </div>
 
-      {(displayDoughWeight != null || displayHydration != null) && (
-        <div style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-xs mt-2 flex flex-wrap gap-x-3 gap-y-0.5">
-          {displayHydration != null && <span>≈ {formatAmount(displayHydration)} % Hydration</span>}
-          {displayDoughWeight != null && <span>≈ {formatAmount(displayDoughWeight)} g Teig gesamt</span>}
-        </div>
-      )}
+      <div className="space-y-2">
+        <ScalerRow
+          label="Menge"
+          value={Math.round(displayServings * 10) / 10}
+          suffix={recipe.servingsUnit}
+          step={1}
+          min={0.1}
+          onChange={onServingsChange}
+        />
+        {doughWeightAvailable && (
+          <ScalerRow
+            label="Teigmenge"
+            value={displayDoughWeight != null ? displayDoughWeight : ""}
+            suffix="g gesamt"
+            step={50}
+            min={1}
+            onChange={onDoughWeightChange}
+          />
+        )}
+        {hydrationAvailable && (
+          <ScalerRow
+            label="Hydration"
+            value={targetHydration != null ? targetHydration : ""}
+            suffix="% (nur Wasser)"
+            step={1}
+            min={0}
+            onChange={onHydrationChange}
+          />
+        )}
+      </div>
     </div>
   );
 }
 
-function IngredientRow({ ing, scaledAmount, onSubstitute }) {
+function IngredientRow({ ing, scaledAmount, displayName, checked, onToggleCheck, onSubstitute, accentColor }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState({ amount: ing.amount, unit: ing.unit, name: ing.name });
   const scaled = scaledAmount != null ? formatAmount(scaledAmount) : null;
+  const name = displayName || ing.name;
 
   if (editing) {
     return (
@@ -1742,14 +1775,33 @@ function IngredientRow({ ing, scaledAmount, onSubstitute }) {
 
   return (
     <div className="flex items-center gap-2 py-1.5" style={{ borderBottom: `1px dashed ${COLORS.line}` }}>
+      <button
+        onClick={() => onToggleCheck(ing.id)}
+        aria-label={checked ? "Als nicht bereitgestellt markieren" : "Als bereitgestellt markieren"}
+        className="rk-focus shrink-0"
+        style={{ color: checked ? accentColor : COLORS.inkSoft }}
+      >
+        <CheckCircle size={18} checked={checked} />
+      </button>
       <div
-        style={{ fontFamily: FONTS.mono, color: COLORS.ink }}
+        style={{
+          fontFamily: FONTS.mono,
+          color: checked ? COLORS.inkSoft : COLORS.ink,
+          textDecoration: checked ? "line-through" : "none",
+        }}
         className="text-right text-sm shrink-0 whitespace-nowrap min-w-[3.5rem]"
       >
         {scaled != null ? `${scaled}${ing.unit ? " " + ing.unit : ""}` : ing.unit || ""}
       </div>
-      <div style={{ fontFamily: FONTS.body, color: COLORS.ink }} className="flex-1 text-sm">
-        {ing.name}
+      <div
+        style={{
+          fontFamily: FONTS.body,
+          color: checked ? COLORS.inkSoft : COLORS.ink,
+          textDecoration: checked ? "line-through" : "none",
+        }}
+        className="flex-1 text-sm"
+      >
+        {name}
       </div>
       <IconButton onClick={() => setEditing(true)} label="Zutat ersetzen" style={{ color: COLORS.inkSoft }}>
         <ArrowLeftRight size={14} />
@@ -1944,8 +1996,11 @@ function UsageEntry({ entry, onDelete, onOpenPhoto }) {
 }
 
 function DetailView({ recipe, onBack, onEdit, onDelete, onUpdateRecipe }) {
-  const [scaleMode, setScaleMode] = useState("servings"); // servings | doughWeight | hydration
-  const [scaleValue, setScaleValue] = useState(recipe.baseServings);
+  const baseHydration = recipe.hydration ?? calcHydration(recipe.ingredients);
+  const [flourFactor, setFlourFactor] = useState(1);
+  const [targetHydration, setTargetHydration] = useState(baseHydration);
+  const [checkedIngredients, setCheckedIngredients] = useState(() => new Set());
+  const [checkedSteps, setCheckedSteps] = useState(() => new Set());
   const [showUsageForm, setShowUsageForm] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [editingNotes, setEditingNotes] = useState(false);
@@ -1953,13 +2008,44 @@ function DetailView({ recipe, onBack, onEdit, onDelete, onUpdateRecipe }) {
   const [lightboxSrc, setLightboxSrc] = useState(null);
 
   const scaledIngredients = useMemo(
-    () => computeScaledIngredients(recipe, scaleMode, scaleValue),
-    [recipe, scaleMode, scaleValue]
+    () => computeScaledIngredientsV2(recipe, flourFactor, targetHydration),
+    [recipe, flourFactor, targetHydration]
   );
+  const displayServings = flourFactor * recipe.baseServings;
   const displayDoughWeight = useMemo(() => sumScaledGrams(scaledIngredients), [scaledIngredients]);
-  const displayHydration = useMemo(() => scaledHydrationFromList(scaledIngredients), [scaledIngredients]);
   const avg = computeAvgRating(recipe.usageLog);
   const color = categoryColor(recipe.category);
+
+  function handleServingsChange(v) {
+    if (recipe.baseServings > 0 && v > 0) setFlourFactor(v / recipe.baseServings);
+  }
+  function handleDoughWeightChange(v) {
+    setFlourFactor(solveFlourFactorForDoughWeight(recipe, Number(v), targetHydration));
+  }
+  function handleHydrationChange(v) {
+    setTargetHydration(Number(v));
+  }
+  function resetScaler() {
+    setFlourFactor(1);
+    setTargetHydration(baseHydration);
+  }
+
+  function toggleIngredientChecked(id) {
+    setCheckedIngredients((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+  function toggleStepChecked(idx) {
+    setCheckedSteps((prev) => {
+      const next = new Set(prev);
+      if (next.has(idx)) next.delete(idx);
+      else next.add(idx);
+      return next;
+    });
+  }
 
   function substituteIngredient(id, patch) {
     onUpdateRecipe({ ...recipe, ingredients: recipe.ingredients.map((i) => (i.id === id ? { ...i, ...patch } : i)) });
@@ -2094,12 +2180,14 @@ function DetailView({ recipe, onBack, onEdit, onDelete, onUpdateRecipe }) {
         <div className="mb-4">
           <RecipeScaler
             recipe={recipe}
-            mode={scaleMode}
-            setMode={setScaleMode}
-            value={scaleValue}
-            setValue={setScaleValue}
+            flourFactor={flourFactor}
+            displayServings={displayServings}
             displayDoughWeight={displayDoughWeight}
-            displayHydration={displayHydration}
+            targetHydration={targetHydration}
+            onServingsChange={handleServingsChange}
+            onDoughWeightChange={handleDoughWeightChange}
+            onHydrationChange={handleHydrationChange}
+            onReset={resetScaler}
           />
         </div>
 
@@ -2109,9 +2197,44 @@ function DetailView({ recipe, onBack, onEdit, onDelete, onUpdateRecipe }) {
               Keine Zutaten hinterlegt.
             </p>
           ) : (
-            scaledIngredients.map((ing) => (
-              <IngredientRow key={ing.id} ing={ing} scaledAmount={ing.scaledAmount} onSubstitute={substituteIngredient} />
-            ))
+            (() => {
+              let currentGroup = null;
+              return scaledIngredients.map((ing) => {
+                const extracted = extractIngredientGroup(ing.name);
+                const displayName = extracted ? extracted.rest : ing.name;
+                let header = null;
+                if (extracted && extracted.group !== currentGroup) {
+                  currentGroup = extracted.group;
+                  header = currentGroup;
+                } else if (!extracted && currentGroup != null) {
+                  currentGroup = null;
+                }
+                return (
+                  <React.Fragment key={ing.id}>
+                    {header && (
+                      <div className="flex items-center gap-2 mt-3 mb-1.5 first:mt-0">
+                        <span
+                          style={{ fontFamily: FONTS.mono, color, background: categorySoft(recipe.category) }}
+                          className="text-[10px] px-2 py-0.5 rounded uppercase tracking-wide shrink-0"
+                        >
+                          {header}
+                        </span>
+                        <div style={{ borderTop: `1px dashed ${COLORS.line}` }} className="flex-1" />
+                      </div>
+                    )}
+                    <IngredientRow
+                      ing={ing}
+                      scaledAmount={ing.scaledAmount}
+                      displayName={displayName}
+                      checked={checkedIngredients.has(ing.id)}
+                      onToggleCheck={toggleIngredientChecked}
+                      onSubstitute={substituteIngredient}
+                      accentColor={color}
+                    />
+                  </React.Fragment>
+                );
+              });
+            })()
           )}
         </div>
 
@@ -2119,20 +2242,54 @@ function DetailView({ recipe, onBack, onEdit, onDelete, onUpdateRecipe }) {
           <span style={{ fontFamily: FONTS.body, color: COLORS.ink }} className="text-sm font-semibold block mb-2">
             Zubereitung
           </span>
-          <div className="space-y-3">
-            {recipe.steps.map((s, idx) => (
-              <div key={idx} className="flex gap-3">
-                <div
-                  style={{ fontFamily: FONTS.mono, color: COLORS.card, background: color }}
-                  className="w-6 h-6 rounded-full flex items-center justify-center text-[11px] shrink-0"
-                >
-                  {idx + 1}
-                </div>
-                <p style={{ fontFamily: FONTS.body, color: COLORS.ink }} className="text-sm flex-1">
-                  {s}
-                </p>
-              </div>
-            ))}
+          <div className="space-y-1">
+            {(() => {
+              let currentDay = null;
+              return recipe.steps.map((s, idx) => {
+                const extracted = extractDayMarker(s);
+                const displayText = extracted ? extracted.rest : s;
+                let header = null;
+                if (extracted && extracted.day !== currentDay) {
+                  currentDay = extracted.day;
+                  header = currentDay;
+                }
+                const isChecked = checkedSteps.has(idx);
+                return (
+                  <React.Fragment key={idx}>
+                    {header && (
+                      <div className="flex items-center gap-2 mt-4 mb-2 first:mt-0">
+                        <span
+                          style={{ fontFamily: FONTS.mono, color: COLORS.card, background: color }}
+                          className="text-[11px] px-2.5 py-1 rounded-full uppercase tracking-wide shrink-0"
+                        >
+                          {header}
+                        </span>
+                        <div style={{ borderTop: `1px dashed ${COLORS.line}` }} className="flex-1" />
+                      </div>
+                    )}
+                    <button onClick={() => toggleStepChecked(idx)} className="rk-focus flex gap-3 w-full text-left py-1.5">
+                      <div
+                        style={{ fontFamily: FONTS.mono, color: COLORS.card, background: color, opacity: isChecked ? 0.5 : 1 }}
+                        className="w-6 h-6 rounded-full flex items-center justify-center text-[11px] shrink-0 mt-0.5"
+                      >
+                        {idx + 1}
+                      </div>
+                      <p
+                        style={{
+                          fontFamily: FONTS.body,
+                          color: isChecked ? COLORS.inkSoft : COLORS.ink,
+                          textDecoration: isChecked ? "line-through" : "none",
+                          lineHeight: 1.6,
+                        }}
+                        className="text-sm flex-1"
+                      >
+                        {displayText}
+                      </p>
+                    </button>
+                  </React.Fragment>
+                );
+              });
+            })()}
           </div>
         </div>
 
