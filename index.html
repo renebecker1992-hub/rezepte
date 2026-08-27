@@ -183,6 +183,14 @@ function CheckCircle({ size, checked, ...p }) {
     </svg>
   );
 }
+function Clock({ size, ...p }) {
+  return (
+    <svg {...iconProps(size, p)}>
+      <circle cx="12" cy="12" r="9" />
+      <polyline points="12 7 12 12 16 14" />
+    </svg>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /* Design tokens                                                       */
@@ -832,6 +840,15 @@ function RecipeCard({ recipe, onOpen }) {
           <span>hinzugefügt {formatDate(recipe.createdAt)}</span>
           <span>{recipe.usageCount > 0 ? `${recipe.usageCount}× benutzt` : "noch nicht benutzt"}</span>
         </div>
+        {recipe.timeOverview && (
+          <div
+            style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }}
+            className="flex items-start gap-1.5 text-[11px] mt-1.5"
+          >
+            <Clock size={12} className="shrink-0 mt-0.5" />
+            <span>{recipe.timeOverview}</span>
+          </div>
+        )}
       </div>
     </button>
   );
@@ -1025,6 +1042,7 @@ function buildEmptyForm(categories, prefillSourceUrl) {
     servingsUnit: "Portionen",
     hydration: null,
     doughWeight: null,
+    timeOverview: "",
     ingredients: [{ id: uid("ing"), amount: null, unit: "", name: "" }],
     steps: [""],
   };
@@ -1045,6 +1063,7 @@ function RecipeFormBody({ mode, initial, categories, onAddCategory, onSave, onCa
           servingsUnit: initial.servingsUnit,
           hydration: initial.hydration ?? null,
           doughWeight: initial.doughWeight ?? null,
+          timeOverview: initial.timeOverview || "",
           ingredients: initial.ingredients.map((i) => ({ ...i })),
           steps: [...initial.steps],
         }
@@ -1136,6 +1155,7 @@ function RecipeFormBody({ mode, initial, categories, onAddCategory, onSave, onCa
       servingsUnit: form.servingsUnit.trim() || "Portionen",
       hydration: form.hydration === "" || form.hydration == null ? null : Number(form.hydration),
       doughWeight: form.doughWeight === "" || form.doughWeight == null ? null : Number(form.doughWeight),
+      timeOverview: (form.timeOverview || "").trim(),
       ingredients: cleanIngredients,
       steps: cleanSteps,
     });
@@ -1288,6 +1308,17 @@ function RecipeFormBody({ mode, initial, categories, onAddCategory, onSave, onCa
           "Berechnen" schätzt aus Zutaten mit Angabe in g/kg (Wasser ÷ Mehl bzw. Summe aller Mengen) – bei Bedarf
           anpassen, z. B. wenn Sauerteig/Anstellgut mit einbezogen werden soll.
         </p>
+
+        <label style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-[11px] uppercase tracking-wide">
+          Zeitplan (kurz, optional)
+        </label>
+        <input
+          value={form.timeOverview}
+          onChange={(e) => update({ timeOverview: e.target.value })}
+          placeholder="z. B. Tag 1: ca. 5 Std. aktiv + Übernachtgare · Tag 2: ca. 1,5 Std."
+          className="rk-focus w-full rounded-md px-3 py-2 text-sm mt-1 mb-4"
+          style={INPUT_STYLE}
+        />
 
         <label style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-[11px] uppercase tracking-wide">
           Von (Autor/Quelle-Person, optional)
@@ -2134,6 +2165,16 @@ function DetailView({ recipe, onBack, onEdit, onDelete, onUpdateRecipe }) {
           </a>
         )}
 
+        {recipe.timeOverview && (
+          <div
+            className="flex items-start gap-2 mb-4 px-3 py-2 rounded-lg text-xs"
+            style={{ background: categorySoft(recipe.category), color, fontFamily: FONTS.mono }}
+          >
+            <Clock size={14} className="shrink-0 mt-0.5" />
+            <span>{recipe.timeOverview}</span>
+          </div>
+        )}
+
         <div className="rounded-lg p-3 mb-4" style={{ background: COLORS.card, border: `1px solid ${COLORS.line}` }}>
           <div className="flex items-center justify-between mb-1">
             <span style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-[10px] uppercase tracking-wide">
@@ -2545,6 +2586,7 @@ function App() {
       servingsUnit: p.servingsUnit,
       hydration: p.hydration != null ? p.hydration : calcHydration(p.ingredients),
       doughWeight: p.doughWeight != null ? p.doughWeight : calcDoughWeight(p.ingredients),
+      timeOverview: p.timeOverview || "",
       ingredients: p.ingredients.map((i) => ({ id: uid("ing"), ...i })),
       steps: [...p.steps],
       createdAt: new Date().toISOString(),
@@ -2679,6 +2721,7 @@ function App() {
         category: r.category,
         createdAt: r.createdAt,
         sourceUrl: r.sourceUrl || "",
+        timeOverview: r.timeOverview || "",
         avgRating: computeAvgRating(r.usageLog),
         usageCount: r.usageLog.length,
       })),
