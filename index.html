@@ -397,13 +397,20 @@ function normalizeStep(s) {
   return { text: s || "", day: null };
 }
 
+// Nur "Quellstück"-Gruppen werden von der Mehl/Wasser-Klassifizierung
+// ausgeschlossen (das Wasser dient dort meist zum Einweichen von Saaten,
+// nicht zur Teighydration). Andere Teilrezepte wie Sauerteig-Ansatz,
+// Vorteig, Kochstück, Brühstück oder Poolish sind selbst Mehl-Wasser-
+// Gemische und zählen ganz normal zur Gesamt-Hydration mit dazu.
 function classifyIngredient(ing) {
   const g = ingredientGrams(ing);
   if (g == null) return { bucket: "skip", grams: null };
-  if (ing.group) return { bucket: "other", grams: g };
   const name = (ing.name || "").toLowerCase();
-  if (name.includes("mehl")) return { bucket: "flour", grams: g };
-  if (name.includes("wasser")) return { bucket: "water", grams: g };
+  const group = (ing.group || "").trim().toLowerCase();
+  if (group !== "quellstück") {
+    if (name.includes("mehl")) return { bucket: "flour", grams: g };
+    if (name.includes("wasser")) return { bucket: "water", grams: g };
+  }
   return { bucket: "other", grams: g };
 }
 
