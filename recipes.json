@@ -9,26 +9,90 @@
     "servingsUnit": "Brot",
     "timeOverview": "Ca. 60 Std. gesamt: Tag 1 ~30 Min. aktiv + 2 Std. Reifen bei Raumtemp., dann 2 Tage (~48 Std.) im Kühlschrank mit kurzen Dehn-&-Falt-Handgriffen 1-3×/Tag. Am Backtag ~1 Std. Formen/Ruhe + ca. 70 Min. Backen.",
     "ingredients": [
-      { "amount": 700, "unit": "g", "name": "Wasser, kalt", "group": null },
-      { "amount": 600, "unit": "g", "name": "Halbweissmehl (Weizenmehl Type 812)", "group": null },
-      { "amount": 400, "unit": "g", "name": "Ruchmehl (Weizenmehl Type 1050)", "group": null },
-      { "amount": null, "unit": "100-130 g", "name": "aktiver Sauerteig", "group": null },
-      { "amount": 25, "unit": "g", "name": "Salz", "group": null }
+      {
+        "amount": 700,
+        "unit": "g",
+        "name": "Wasser, kalt",
+        "group": null
+      },
+      {
+        "amount": 600,
+        "unit": "g",
+        "name": "Halbweissmehl (Weizenmehl Type 812)",
+        "group": null
+      },
+      {
+        "amount": 400,
+        "unit": "g",
+        "name": "Ruchmehl (Weizenmehl Type 1050)",
+        "group": null
+      },
+      {
+        "amount": null,
+        "unit": "100-130 g",
+        "name": "aktiver Sauerteig",
+        "group": null
+      },
+      {
+        "amount": 25,
+        "unit": "g",
+        "name": "Salz",
+        "group": null
+      }
     ],
     "steps": [
-      { "text": "Wasser, Mehl und Sauerteig 3-4 Min. verkneten.", "day": "Tag 1 (Ansetzen)" },
-      { "text": "Salz zugeben, dann ca. 15-20 Min. bei mittlerer Geschwindigkeit weiterkneten.", "day": null },
-      { "text": "Zugedeckt ca. 2 Std. bei Raumtemperatur reifen lassen.", "day": null },
-      { "text": "Einmal dehnen und falten.", "day": null },
-      { "text": "Danach 2 Tage (ca. 48 Std.) abgedeckt in den Kühlschrank – dabei 1-3x täglich dehnen und falten, dazwischen mind. 3-4 Std. Ruhe.", "day": "Tag 1–3 (Kühlschrank)" },
-      { "text": "3-4 Std. vor dem Formen nochmals dehnen und falten, dann bei Raumtemperatur akklimatisieren lassen.", "day": "Tag 3 (Formen)" },
-      { "text": "Teig rundwirken/straff aufziehen, dabei die Luftblasen im Teig erhalten.", "day": null },
-      { "text": "Auf bemehltem Tuch zugedeckt 2 Std. ruhen lassen.", "day": null },
-      { "text": "Oberfläche bemehlen, mit einem Rollstab kreuzweise tief eindrücken.", "day": null },
-      { "text": "Auf ein mit Backpapier belegtes Blech setzen, zugedeckt weitere 1-2 Std. bei Raumtemperatur ruhen lassen. Ofen auf 250 °C Ober-/Unterhitze vorheizen.", "day": null },
-      { "text": "Teigling leicht bemehlen, Blech in den vorgeheizten Ofen schieben.", "day": "Tag 3 (Backen)" },
-      { "text": "Ofen bedampfen, Temperatur auf 220 °C reduzieren, 20 Min. backen.", "day": null },
-      { "text": "Ofentür kurz öffnen zum Dampfablassen, weitere 45-50 Min. fertig backen.", "day": null }
+      {
+        "text": "Wasser, Mehl und Sauerteig 3-4 Min. verkneten.",
+        "day": "Tag 1 (Ansetzen)"
+      },
+      {
+        "text": "Salz zugeben, dann ca. 15-20 Min. bei mittlerer Geschwindigkeit weiterkneten.",
+        "day": null
+      },
+      {
+        "text": "Zugedeckt ca. 2 Std. bei Raumtemperatur reifen lassen.",
+        "day": null
+      },
+      {
+        "text": "Einmal dehnen und falten.",
+        "day": null
+      },
+      {
+        "text": "Danach 2 Tage (ca. 48 Std.) abgedeckt in den Kühlschrank – dabei 1-3x täglich dehnen und falten, dazwischen mind. 3-4 Std. Ruhe.",
+        "day": "Tag 1–3 (Kühlschrank)"
+      },
+      {
+        "text": "3-4 Std. vor dem Formen nochmals dehnen und falten, dann bei Raumtemperatur akklimatisieren lassen.",
+        "day": "Tag 3 (Formen)"
+      },
+      {
+        "text": "Teig rundwirken/straff aufziehen, dabei die Luftblasen im Teig erhalten.",
+        "day": null
+      },
+      {
+        "text": "Auf bemehltem Tuch zugedeckt 2 Std. ruhen lassen.",
+        "day": null
+      },
+      {
+        "text": "Oberfläche bemehlen, mit einem Rollstab kreuzweise tief eindrücken.",
+        "day": null
+      },
+      {
+        "text": "Auf ein mit Backpapier belegtes Blech setzen, zugedeckt weitere 1-2 Std. bei Raumtemperatur ruhen lassen. Ofen auf 250 °C Ober-/Unterhitze vorheizen.",
+        "day": null
+      },
+      {
+        "text": "Teigling leicht bemehlen, Blech in den vorgeheizten Ofen schieben.",
+        "day": "Tag 3 (Backen)"
+      },
+      {
+        "text": "Ofen bedampfen, Temperatur auf 220 °C reduzieren, 20 Min. backen.",
+        "day": null
+      },
+      {
+        "text": "Ofentür kurz öffnen zum Dampfablassen, weitere 45-50 Min. fertig backen.",
+        "day": null
+      }
     ]
   },
   {
@@ -42,27 +106,240 @@
     "hydration": 70,
     "timeOverview": "Tag 1: ca. 5 Std. aktive Zeit (10:00-15:00 Uhr, inkl. 4x Dehnen & Falten alle 45-75 Min.), danach über Nacht (~16 Std.) im Kühlschrank. Tag 2: ca. 1,5 Std. (Ofen vorheizen + Backen).",
     "ingredients": [
-      { "amount": 40, "unit": "g", "name": "Kürbiskerne, trocken angeröstet", "group": "Quellstück" },
-      { "amount": 40, "unit": "g", "name": "Sonnenblumenkerne, trocken angeröstet", "group": "Quellstück" },
-      { "amount": 7, "unit": "g", "name": "Flohsamenschalen", "group": "Quellstück" },
-      { "amount": 120, "unit": "g", "name": "Wasser, heiß", "group": "Quellstück" },
-      { "amount": 500, "unit": "g", "name": "Ruchmehl", "group": null },
-      { "amount": 350, "unit": "g", "name": "Wasser, ca. 15 °C (davon 50 g zur Bassinage zurückhalten)", "group": null },
-      { "amount": 120, "unit": "g", "name": "Anstellgut, älter", "group": null },
-      { "amount": 1.5, "unit": "g", "name": "Frischhefe (oder 0,5 g Trockenhefe)", "group": null },
-      { "amount": 11, "unit": "g", "name": "Salz", "group": null }
+      {
+        "amount": 40,
+        "unit": "g",
+        "name": "Kürbiskerne, trocken angeröstet",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 40,
+        "unit": "g",
+        "name": "Sonnenblumenkerne, trocken angeröstet",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 7,
+        "unit": "g",
+        "name": "Flohsamenschalen",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 120,
+        "unit": "g",
+        "name": "Wasser, heiß",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 500,
+        "unit": "g",
+        "name": "Ruchmehl",
+        "group": null
+      },
+      {
+        "amount": 350,
+        "unit": "g",
+        "name": "Wasser, ca. 15 °C (davon 50 g zur Bassinage zurückhalten)",
+        "group": null
+      },
+      {
+        "amount": 120,
+        "unit": "g",
+        "name": "Anstellgut, älter",
+        "group": null
+      },
+      {
+        "amount": 1.5,
+        "unit": "g",
+        "name": "Frischhefe (oder 0,5 g Trockenhefe)",
+        "group": null
+      },
+      {
+        "amount": 11,
+        "unit": "g",
+        "name": "Salz",
+        "group": null
+      }
     ],
     "steps": [
-      { "text": "10:00 Uhr: Kürbis- und Sonnenblumenkerne 3 Min. trocken anrösten, mit Flohsamenschalen und dem heißen Wasser zum Quellstück ansetzen. Parallel Autolyse ansetzen: Ruchmehl mit 320 g Wasser kurz vermischen und abdecken.", "day": "Tag 1" },
-      { "text": "10:30 Uhr: Hauptteig kneten – Autolyse, Anstellgut, Hefe, Salz und Quellstück zugeben, 5 Min. langsam, dann 5–7 Min. zügig kneten. Die zurückgehaltenen 30 g Wasser (Bassinage) am Ende einarbeiten. Zielteigtemperatur 24 °C.", "day": null },
-      { "text": "11:00 Uhr: Stockgare bei Raumtemperatur (ca. 22 °C) in einer geölten Wanne.", "day": null },
-      { "text": "11:30, 12:15, 13:00 und 13:45 Uhr: jeweils einmal dehnen und falten.", "day": null },
-      { "text": "14:30 Uhr: rund vorformen, 15 Min. Bench Rest (entspannen lassen).", "day": null },
-      { "text": "14:50 Uhr: endgültig formen, mit Schluss nach oben in einen bemehlten Gärkorb legen.", "day": null },
-      { "text": "15:00 Uhr: in den Kühlschrank (4–5 °C) für ca. 16 Std. Übernachtgare.", "day": null },
-      { "text": "Gusseisentopf 30 Min. bei 250 °C vorheizen.", "day": "Tag 2" },
-      { "text": "Teig direkt aus dem Kühlschrank in den heißen Topf stürzen und einschneiden.", "day": null },
-      { "text": "30 Min. mit Deckel bei 230 °C backen, danach 25 Min. ohne Deckel bei 210 °C fertig backen (Temperatur nicht vergessen runterzudrehen!).", "day": null }
+      {
+        "text": "10:00 Uhr: Kürbis- und Sonnenblumenkerne 3 Min. trocken anrösten, mit Flohsamenschalen und dem heißen Wasser zum Quellstück ansetzen. Parallel Autolyse ansetzen: Ruchmehl mit 320 g Wasser kurz vermischen und abdecken.",
+        "day": "Tag 1"
+      },
+      {
+        "text": "10:30 Uhr: Hauptteig kneten – Autolyse, Anstellgut, Hefe, Salz und Quellstück zugeben, 5 Min. langsam, dann 5–7 Min. zügig kneten. Die zurückgehaltenen 30 g Wasser (Bassinage) am Ende einarbeiten. Zielteigtemperatur 24 °C.",
+        "day": null
+      },
+      {
+        "text": "11:00 Uhr: Stockgare bei Raumtemperatur (ca. 22 °C) in einer geölten Wanne.",
+        "day": null
+      },
+      {
+        "text": "11:30, 12:15, 13:00 und 13:45 Uhr: jeweils einmal dehnen und falten.",
+        "day": null
+      },
+      {
+        "text": "14:30 Uhr: rund vorformen, 15 Min. Bench Rest (entspannen lassen).",
+        "day": null
+      },
+      {
+        "text": "14:50 Uhr: endgültig formen, mit Schluss nach oben in einen bemehlten Gärkorb legen.",
+        "day": null
+      },
+      {
+        "text": "15:00 Uhr: in den Kühlschrank (4–5 °C) für ca. 16 Std. Übernachtgare.",
+        "day": null
+      },
+      {
+        "text": "Gusseisentopf 30 Min. bei 250 °C vorheizen.",
+        "day": "Tag 2"
+      },
+      {
+        "text": "Teig direkt aus dem Kühlschrank in den heißen Topf stürzen und einschneiden.",
+        "day": null
+      },
+      {
+        "text": "30 Min. mit Deckel bei 230 °C backen, danach 25 Min. ohne Deckel bei 210 °C fertig backen (Temperatur nicht vergessen runterzudrehen!).",
+        "day": null
+      }
+    ]
+  },
+  {
+    "title": "Das Ultimative Sauerteigbrot",
+    "author": "René Dasbeck (brooot.de)",
+    "category": "Backen",
+    "sourceUrl": "https://www.brooot.de/weizenbrote/das-ultimative-sauerteigbrot/",
+    "notes": "Sauerteig muss sehr fit sein (keine Hefe im Grundrezept), am besten 2-3 Tage vorher auffrischen; sonst 1g Hefe als Rückversicherung zugeben. Ergibt ca. 880g Brot, hält sich 2-3 Tage frisch. Bei schwächerem Mehl (unter 11-12% Eiweiß) ggf. etwas weniger Wasser verwenden.",
+    "baseServings": 1,
+    "servingsUnit": "Brot (~880 g)",
+    "timeOverview": "Tag 1: ca. 1 Std. aktive Zeit über den Tag verteilt (Sauerteig/Kochstück/Autolyse ansetzen, kneten, 3x Dehnen & Falten, Formen) plus ca. 6 Std. Stockgare, dann über Nacht (~14 Std.) im Kühlschrank. Tag 2: ca. 1,5 Std. (Ofen vorheizen + Backen).",
+    "ingredients": [
+      {
+        "amount": 25,
+        "unit": "g",
+        "name": "Anstellgut Weizensauer",
+        "group": "Sauerteig"
+      },
+      {
+        "amount": 50,
+        "unit": "g",
+        "name": "Weizenmehl 550",
+        "group": "Sauerteig"
+      },
+      {
+        "amount": 25,
+        "unit": "g",
+        "name": "Weizenvollkornmehl",
+        "group": "Sauerteig"
+      },
+      {
+        "amount": 75,
+        "unit": "g",
+        "name": "Wasser",
+        "group": "Sauerteig"
+      },
+      {
+        "amount": 25,
+        "unit": "g",
+        "name": "Weizenvollkornmehl",
+        "group": "Kochstück"
+      },
+      {
+        "amount": 100,
+        "unit": "g",
+        "name": "Wasser",
+        "group": "Kochstück"
+      },
+      {
+        "amount": 10,
+        "unit": "g",
+        "name": "Rübensirup (oder Melasse/Honig)",
+        "group": "Kochstück"
+      },
+      {
+        "amount": 350,
+        "unit": "g",
+        "name": "Weizenmehl 550",
+        "group": null
+      },
+      {
+        "amount": 50,
+        "unit": "g",
+        "name": "Weizenvollkornmehl",
+        "group": null
+      },
+      {
+        "amount": 220,
+        "unit": "g",
+        "name": "Wasser",
+        "group": null
+      },
+      {
+        "amount": 12,
+        "unit": "g",
+        "name": "Salz",
+        "group": null
+      },
+      {
+        "amount": 25,
+        "unit": "g",
+        "name": "Wasser (Bassinage/Reservewasser)",
+        "group": null
+      }
+    ],
+    "steps": [
+      {
+        "text": "9:00 Uhr: Sauerteig ansetzen – Anstellgut in Wasser auflösen, Mehle einrühren, abgedeckt bei ca. 28 °C reifen lassen (ca. 4,5 Std.).",
+        "day": "Tag 1"
+      },
+      {
+        "text": "9:05 Uhr: Kochstück ansetzen – Rübensirup im kalten Wasser verrühren, Mehl einrühren, unter Rühren aufkochen bis puddingartig, direkt mit Folie abdecken und abkühlen lassen.",
+        "day": null
+      },
+      {
+        "text": "12:45 Uhr: Autolyseteig ansetzen – die Hälfte des Kochstücks mit dem restlichen Wasser verrühren, Mehle zugeben, kurz zu einem Teigklumpen verkneten, abgedeckt quellen lassen.",
+        "day": null
+      },
+      {
+        "text": "13:35 Uhr: Hauptteig kneten – Sauerteig zum Autolyseteig geben, 5-6 Min. langsam kneten. Restliches Kochstück in Etappen einkneten, letzte 3 Min. das Salz einkneten. Bei Bedarf die Bassinage tröpfchenweise einarbeiten, bis der Teig geschmeidig ist und die Fensterprobe besteht. Zielteigtemperatur ca. 25 °C.",
+        "day": null
+      },
+      {
+        "text": "Teig in eine leicht geölte Wanne geben, 5:30-6 Std. Stockgare bei ca. 21 °C Raumtemperatur.",
+        "day": null
+      },
+      {
+        "text": "14:20, 14:50 und 15:20 Uhr: je einmal dehnen und falten.",
+        "day": null
+      },
+      {
+        "text": "19:30 Uhr: Teig auf die Arbeitsfläche kippen, rund vorformen (Preshape), 20 Min. ruhen lassen.",
+        "day": null
+      },
+      {
+        "text": "19:50 Uhr: Teig länglich zum Batard formen, in ein bemehltes, längliches Gärkörbchen legen, ca. 10 Min. andocken lassen.",
+        "day": null
+      },
+      {
+        "text": "Gärkörbchen in einen Gefrierbeutel packen (etwas Luft hineinpusten), ab 20:00 Uhr über Nacht in den 5-6 °C kalten Kühlschrank stellen.",
+        "day": null
+      },
+      {
+        "text": "10:00 Uhr: Ofen auf 250 °C vorheizen (mit Backstein oder Topf).",
+        "day": "Tag 2"
+      },
+      {
+        "text": "Nach 45 Min. Teigling direkt aus dem Kühlschrank stürzen und einschneiden.",
+        "day": null
+      },
+      {
+        "text": "Bei Backstein: 10 Min. bei 250 °C schwaden, dann Dampf ablassen, auf 200 °C reduzieren und weitere ca. 40 Min. backen. Bei Topf: 20 Min. geschlossen bei 250 °C, dann Deckel ab und 30 Min. bei 200 °C fertig backen.",
+        "day": null
+      },
+      {
+        "text": "Auf einem Rost auskühlen lassen.",
+        "day": null
+      }
     ]
   }
 ]
