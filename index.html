@@ -183,14 +183,6 @@ function CheckCircle({ size, checked, ...p }) {
     </svg>
   );
 }
-function Clock({ size, ...p }) {
-  return (
-    <svg {...iconProps(size, p)}>
-      <circle cx="12" cy="12" r="9" />
-      <polyline points="12 7 12 12 16 14" />
-    </svg>
-  );
-}
 
 /* ------------------------------------------------------------------ */
 /* Design tokens                                                       */
@@ -534,14 +526,7 @@ function compressImageFile(file, maxDim, quality) {
 const PARSE_SYSTEM_PROMPT = `Du extrahierst Kochrezepte aus unstrukturiertem Text (z. B. von einer Rezept-Webseite kopiert). Antworte AUSSCHLIESSLICH mit einem validen JSON-Objekt, ohne Markdown-Codeblock, ohne Erklärungen davor oder danach.
 
 Format exakt so:
-{"title": string, "author": string oder null, "category": "Kochen" oder "Backen", "baseServings": number, "servingsUnit": string, "timeOverview": string oder null, "ingredients": [{"amount": number oder null, "unit": string, "name": string, "group": string oder null}], "steps": [{"text": string, "day": string oder null}]}
-
-Regeln:
-- "author": Name der Person/des Blogs, von dem das Rezept stammt, falls erkennbar (z. B. Autor:in des Blogs oder Buchs); sonst null.
-- "category": wähle "Backen" für Kuchen, Brot, Gebäck, süße Backwaren; sonst "Kochen".
-- "baseServings": Anzahl Portionen/Stück laut Text; wenn nicht eindeutig angegeben, schätze sinnvoll (z. B. 4).
-- "servingsUnit": z. B. "Portionen", "Stück", "Brote", "Personen".
-- "timeOverview": knappe 1-2 Sätze, wie viel Zeit pro Tag/Abschnitt eingeplant werden muss (z. B. "Tag 1: ca. 5 Std. aktiv + Übernachtgare. Tag 2: ca. 1,5 Std."). Nur befüllen, wenn sich das aus dem Text sinnvoll ableiten lässt, sonst null.
+{"title": string, "author": string oder null, "category": "Kochen" oder "Backen", "baseServings": number, "servingsUnit": string, "ingredients": [{"amount": number oder null, "unit": string, "name": string, "group": string oder null}], "steps": [{"text": string, "day": string oder null}]}
 - "amount": wenn keine klare Zahl vorhanden ist (z. B. "etwas", "nach Geschmack", "1 Prise"), setze amount auf null und beschreibe die Menge im "unit"-Feld.
 - "group": NUR setzen, wenn die Zutat laut Text explizit zu einem separaten Teilrezept gehört (z. B. "Quellstück", "Vorteig", "Hauptteig", "Brühstück", "Poolish"); normale Hauptteig-Zutaten ohne genannte Zugehörigkeit bekommen null.
 - "day": NUR beim ERSTEN Schritt eines neuen Tages/Abschnitts setzen (z. B. "Tag 1", "Tag 2"); alle folgenden Schritte desselben Tages bekommen null.
@@ -574,14 +559,13 @@ async function parseRecipeText(rawText) {
 const URL_PARSE_SYSTEM_PROMPT = `Du bekommst eine URL zu einer Rezept-Webseite. Nutze die Websuche, um den Inhalt dieser Seite zu finden, und extrahiere daraus das Rezept. Antworte AUSSCHLIESSLICH mit einem validen JSON-Objekt, ohne Markdown-Codeblock, ohne Erklärungen davor oder danach.
 
 Format exakt so:
-{"title": string, "author": string oder null, "category": "Kochen" oder "Backen", "baseServings": number, "servingsUnit": string, "timeOverview": string oder null, "ingredients": [{"amount": number oder null, "unit": string, "name": string, "group": string oder null}], "steps": [{"text": string, "day": string oder null}]}
+{"title": string, "author": string oder null, "category": "Kochen" oder "Backen", "baseServings": number, "servingsUnit": string, "ingredients": [{"amount": number oder null, "unit": string, "name": string, "group": string oder null}], "steps": [{"text": string, "day": string oder null}]}
 
 Regeln:
 - "author": Name der Person/des Blogs, von dem das Rezept stammt, falls auf der Seite erkennbar; sonst null.
 - "category": wähle "Backen" für Kuchen, Brot, Gebäck, süße Backwaren; sonst "Kochen".
 - "baseServings": Anzahl Portionen/Stück laut Seite; wenn nicht eindeutig angegeben, schätze sinnvoll (z. B. 4).
 - "servingsUnit": z. B. "Portionen", "Stück", "Brote", "Personen".
-- "timeOverview": knappe 1-2 Sätze, wie viel Zeit pro Tag/Abschnitt eingeplant werden muss. Nur befüllen, wenn sich das aus der Seite sinnvoll ableiten lässt, sonst null.
 - "amount": wenn keine klare Zahl vorhanden ist (z. B. "etwas", "nach Geschmack", "1 Prise"), setze amount auf null und beschreibe die Menge im "unit"-Feld.
 - "group": NUR setzen, wenn die Zutat laut Seite explizit zu einem separaten Teilrezept gehört (z. B. "Quellstück", "Vorteig", "Hauptteig", "Brühstück", "Poolish"); normale Hauptteig-Zutaten ohne genannte Zugehörigkeit bekommen null.
 - "day": NUR beim ERSTEN Schritt eines neuen Tages/Abschnitts setzen (z. B. "Tag 1", "Tag 2"); alle folgenden Schritte desselben Tages bekommen null.
@@ -876,15 +860,6 @@ function RecipeCard({ recipe, onOpen }) {
           <span>hinzugefügt {formatDate(recipe.createdAt)}</span>
           <span>{recipe.usageCount > 0 ? `${recipe.usageCount}× benutzt` : "noch nicht benutzt"}</span>
         </div>
-        {recipe.timeOverview && (
-          <div
-            style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }}
-            className="flex items-start gap-1.5 text-[11px] mt-1.5"
-          >
-            <Clock size={12} className="shrink-0 mt-0.5" />
-            <span>{recipe.timeOverview}</span>
-          </div>
-        )}
       </div>
     </button>
   );
@@ -1078,7 +1053,6 @@ function buildEmptyForm(categories, prefillSourceUrl) {
     servingsUnit: "Portionen",
     hydration: null,
     doughWeight: null,
-    timeOverview: "",
     ingredients: [{ id: uid("ing"), amount: null, unit: "", name: "", group: "" }],
     steps: [{ text: "", day: "" }],
   };
@@ -1099,7 +1073,6 @@ function RecipeFormBody({ mode, initial, categories, onAddCategory, onSave, onCa
           servingsUnit: initial.servingsUnit,
           hydration: initial.hydration ?? null,
           doughWeight: initial.doughWeight ?? null,
-          timeOverview: initial.timeOverview || "",
           ingredients: initial.ingredients.map((i) => {
             const n = normalizeIngredient(i);
             return { ...n, group: n.group || "" };
@@ -1150,7 +1123,6 @@ function RecipeFormBody({ mode, initial, categories, onAddCategory, onSave, onCa
       servingsUnit: parsed.servingsUnit ? String(parsed.servingsUnit) : form.servingsUnit,
       hydration: calcHydration(ingredients) ?? form.hydration,
       doughWeight: calcDoughWeight(ingredients) ?? form.doughWeight,
-      timeOverview: parsed.timeOverview ? String(parsed.timeOverview) : form.timeOverview,
       ingredients,
       steps,
     });
@@ -1212,7 +1184,6 @@ function RecipeFormBody({ mode, initial, categories, onAddCategory, onSave, onCa
       servingsUnit: form.servingsUnit.trim() || "Portionen",
       hydration: form.hydration === "" || form.hydration == null ? null : Number(form.hydration),
       doughWeight: form.doughWeight === "" || form.doughWeight == null ? null : Number(form.doughWeight),
-      timeOverview: (form.timeOverview || "").trim(),
       ingredients: cleanIngredients,
       steps: cleanSteps,
     });
@@ -1365,17 +1336,6 @@ function RecipeFormBody({ mode, initial, categories, onAddCategory, onSave, onCa
           "Berechnen" schätzt aus Zutaten mit Angabe in g/kg (Wasser ÷ Mehl bzw. Summe aller Mengen) – bei Bedarf
           anpassen, z. B. wenn Sauerteig/Anstellgut mit einbezogen werden soll.
         </p>
-
-        <label style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-[11px] uppercase tracking-wide">
-          Zeitplan (kurz, optional)
-        </label>
-        <input
-          value={form.timeOverview}
-          onChange={(e) => update({ timeOverview: e.target.value })}
-          placeholder="z. B. Tag 1: ca. 5 Std. aktiv + Übernachtgare · Tag 2: ca. 1,5 Std."
-          className="rk-focus w-full rounded-md px-3 py-2 text-sm mt-1 mb-4"
-          style={INPUT_STYLE}
-        />
 
         <label style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-[11px] uppercase tracking-wide">
           Von (Autor/Quelle-Person, optional)
@@ -1645,7 +1605,6 @@ function AddRecipeView({ categories, onAddCategory, onCreate, onCancel }) {
       servingsUnit: parsed && parsed.servingsUnit ? String(parsed.servingsUnit) : "Portionen",
       hydration: calcHydration(parsedIngredients),
       doughWeight: calcDoughWeight(parsedIngredients),
-      timeOverview: parsed && parsed.timeOverview ? String(parsed.timeOverview) : "",
       ingredients: parsedIngredients,
       steps: parsedSteps,
     };
@@ -2259,16 +2218,6 @@ function DetailView({ recipe, onBack, onEdit, onDelete, onUpdateRecipe }) {
           </a>
         )}
 
-        {recipe.timeOverview && (
-          <div
-            className="flex items-start gap-2 mb-4 px-3 py-2 rounded-lg text-xs"
-            style={{ background: categorySoft(recipe.category), color, fontFamily: FONTS.mono }}
-          >
-            <Clock size={14} className="shrink-0 mt-0.5" />
-            <span>{recipe.timeOverview}</span>
-          </div>
-        )}
-
         <div className="rounded-lg p-3 mb-4" style={{ background: COLORS.card, border: `1px solid ${COLORS.line}` }}>
           <div className="flex items-center justify-between mb-1">
             <span style={{ fontFamily: FONTS.mono, color: COLORS.inkSoft }} className="text-[10px] uppercase tracking-wide">
@@ -2336,12 +2285,11 @@ function DetailView({ recipe, onBack, onEdit, onDelete, onUpdateRecipe }) {
             (() => {
               let currentGroup = null;
               return scaledIngredients.map((ing) => {
+                const group = ing.group || null;
                 let header = null;
-                if (ing.group && ing.group !== currentGroup) {
-                  currentGroup = ing.group;
-                  header = currentGroup;
-                } else if (!ing.group && currentGroup != null) {
-                  currentGroup = null;
+                if (group !== currentGroup) {
+                  currentGroup = group;
+                  header = group || "Hauptteig";
                 }
                 return (
                   <React.Fragment key={ing.id}>
@@ -2677,7 +2625,6 @@ function App() {
       servingsUnit: p.servingsUnit,
       hydration: p.hydration != null ? p.hydration : calcHydration(p.ingredients),
       doughWeight: p.doughWeight != null ? p.doughWeight : calcDoughWeight(p.ingredients),
-      timeOverview: p.timeOverview || "",
       ingredients: p.ingredients.map((i) => ({ id: uid("ing"), ...i })),
       steps: [...p.steps],
       createdAt: new Date().toISOString(),
@@ -2812,7 +2759,6 @@ function App() {
         category: r.category,
         createdAt: r.createdAt,
         sourceUrl: r.sourceUrl || "",
-        timeOverview: r.timeOverview || "",
         avgRating: computeAvgRating(r.usageLog),
         usageCount: r.usageLog.length,
       })),
