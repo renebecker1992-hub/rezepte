@@ -337,21 +337,14 @@ function calcDoughWeight(ingredients) {
   return any ? Math.round(total) : null;
 }
 
-// Hydration (Bäcker-%) = Wasser ÷ Mehl, vereinfacht anhand der Namen
-// "wasser" / "mehl" in den Zutaten. Sauerteig/Anstellgut mit unklarer
-// Menge fließt nicht ein – daher als Vorschlag gedacht, nicht als exakter Wert.
+// Hydration (Bäcker-%) = Wasser ÷ Mehl, gruppen-bewusst über dieselbe
+// Klassifizierung wie die Skalierungs-Logik (siehe classifyIngredient/
+// baseGramsBreakdown weiter unten) – Quellstück-Wasser zählt nicht mit,
+// Vorteig/Sauerteig-Ansatz/Kochstück etc. hingegen schon.
 function calcHydration(ingredients) {
-  let water = 0;
-  let flour = 0;
-  for (const ing of ingredients || []) {
-    const g = ingredientGrams(ing);
-    if (g == null) continue;
-    const name = (ing.name || "").toLowerCase();
-    if (name.includes("wasser")) water += g;
-    else if (name.includes("mehl")) flour += g;
-  }
-  if (flour <= 0) return null;
-  return Math.round((water / flour) * 1000) / 10;
+  const { flourTotal, waterTotal } = baseGramsBreakdown(ingredients);
+  if (flourTotal <= 0) return null;
+  return Math.round((waterTotal / flourTotal) * 1000) / 10;
 }
 
 /* ------------------------------------------------------------------ */
