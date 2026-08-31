@@ -338,5 +338,356 @@
         "day": null
       }
     ]
+  },
+  {
+    "title": "Ruchmehl-Sauerteigbrot mit Kernen",
+    "author": "",
+    "category": "Backen",
+    "sourceUrl": "",
+    "notes": "Ruchmehl nimmt viel Wasser auf – die vollen 250g sind meist unproblematisch. Ohne Ruchmehl: 80% Weizenmehl 1050 + 20% Weizenvollkorn kommt nah ran. Kern-Variation: Sesam oder grob gehackte Walnüsse (nicht rösten) funktionieren auch. Für mehr Tiefe: Sauerteig wärmer (26-28°C) führen.",
+    "baseServings": 1,
+    "servingsUnit": "Laib (~1 kg)",
+    "ingredients": [
+      {
+        "amount": 100,
+        "unit": "g",
+        "name": "Ruchmehl",
+        "group": "Sauerteig"
+      },
+      {
+        "amount": 100,
+        "unit": "g",
+        "name": "Wasser, lauwarm",
+        "group": "Sauerteig"
+      },
+      {
+        "amount": 10,
+        "unit": "g",
+        "name": "Roggen-Anstellgut, aktiv",
+        "group": "Sauerteig"
+      },
+      {
+        "amount": 50,
+        "unit": "g",
+        "name": "Sonnenblumenkerne, geröstet",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 30,
+        "unit": "g",
+        "name": "Kürbiskerne, geröstet",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 20,
+        "unit": "g",
+        "name": "Leinsamen (nicht rösten)",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 100,
+        "unit": "g",
+        "name": "Wasser",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 400,
+        "unit": "g",
+        "name": "Ruchmehl",
+        "group": null
+      },
+      {
+        "amount": 250,
+        "unit": "g",
+        "name": "Wasser, kalt (davon 30 g zurückhalten)",
+        "group": null
+      },
+      {
+        "amount": 12,
+        "unit": "g",
+        "name": "Salz",
+        "group": null
+      }
+    ],
+    "steps": [
+      {
+        "text": "Sauerteig ansetzen: Anstellgut mit dem lauwarmen Wasser verrühren, Ruchmehl einarbeiten. Abgedeckt bei Raumtemperatur (22-24°C) 10-12 Std. reifen lassen, bis er sich verdoppelt hat und angenehm säuerlich riecht.",
+        "day": "Tag 1"
+      },
+      {
+        "text": "Sonnenblumen- und Kürbiskerne in einer trockenen Pfanne oder im Ofen bei 180°C ca. 10 Min. goldbraun rösten. Leinsamen nicht mitrösten.",
+        "day": null
+      },
+      {
+        "text": "Quellstück ansetzen: geröstete Kerne und Leinsamen mit dem Wasser übergießen, abgedeckt mind. 2 Std. (ideal über Nacht) quellen lassen – parallel zum Sauerteig.",
+        "day": null
+      },
+      {
+        "text": "Hauptteig kneten: reifen Sauerteig, Ruchmehl, kaltes Wasser (30 g zurückhalten) und Salz 5 Min. langsam mischen, dann 6-8 Min. kneten, bis der Teig glatt ist und sich vom Schüsselrand löst. Restwasser bei Bedarf einarbeiten.",
+        "day": "Tag 2"
+      },
+      {
+        "text": "Abgetropftes Quellstück einkneten oder während der ersten Faltrunde einlaminieren, bis die Kerne gleichmäßig verteilt sind.",
+        "day": null
+      },
+      {
+        "text": "Stockgare 3-3,5 Std. bei Raumtemperatur, nach 45 und 90 Min. je einmal dehnen und falten. Volumenzunahme ca. 50-70%.",
+        "day": null
+      },
+      {
+        "text": "Straff zu einem Rundlaib oder Bâtard formen, Oberfläche optional anfeuchten und in Kernen wälzen, dann mit Schluss nach oben ins bemehlte Gärkörbchen.",
+        "day": null
+      },
+      {
+        "text": "Abgedeckt bei 4-5°C 10-14 Std. im Kühlschrank kalt reifen lassen.",
+        "day": null
+      },
+      {
+        "text": "Backstahl 45-60 Min. bei 250°C vorheizen. Teigling kalt einschneiden, einschießen und kräftig schwaden. Nach 10 Min. auf 220°C reduzieren und kräftig braun ausbacken (Kerntemperatur ca. 96°C).",
+        "day": "Tag 3"
+      },
+      {
+        "text": "Mind. 2 Std. auf einem Gitter vollständig auskühlen lassen, bevor angeschnitten wird.",
+        "day": null
+      }
+    ]
+  },
+  {
+    "title": "High-Protein-Brötchen",
+    "author": "",
+    "category": "Backen",
+    "sourceUrl": "",
+    "notes": "Kein Whey in den Teig – Molkenprotein stört das Klebergerüst und macht die Krume dicht. Wird die Krume zu fest: fast immer zu viel Knetzeit, nicht zu wenig Wasser. Mehr Ofentrieb: abgestochene Stücke 15 Min. bei Raumtemperatur akklimatisieren (kostet aber die scharfe Schnittkante). Sauerteig-Variante: 30g reifes Roggen-Anstellgut statt Hefe, Stockgare vor dem Kühlschrank 1-2 Std. bei Raumtemperatur verlängern. Nährwerte ca. pro Brötchen (86g): 16g Eiweiß, 24g Kohlenhydrate, 1g Fett, 165 kcal.",
+    "baseServings": 5,
+    "servingsUnit": "Brötchen",
+    "ingredients": [
+      {
+        "amount": 150,
+        "unit": "g",
+        "name": "Weizenmehl 550",
+        "group": null
+      },
+      {
+        "amount": 65,
+        "unit": "g",
+        "name": "Weizengluten (Vitalgluten)",
+        "group": null
+      },
+      {
+        "amount": 8,
+        "unit": "g",
+        "name": "Flohsamenschalen, gemahlen",
+        "group": null
+      },
+      {
+        "amount": 125,
+        "unit": "g",
+        "name": "Magerquark oder Skyr",
+        "group": null
+      },
+      {
+        "amount": 180,
+        "unit": "g",
+        "name": "Wasser, lauwarm",
+        "group": null
+      },
+      {
+        "amount": 6,
+        "unit": "g",
+        "name": "Salz",
+        "group": null
+      },
+      {
+        "amount": 2,
+        "unit": "g",
+        "name": "Frischhefe (oder 0,7 g Trockenhefe)",
+        "group": null
+      }
+    ],
+    "steps": [
+      {
+        "text": "Trockenmischung: Mehl, Weizengluten und Flohsamenschalen trocken gründlich vermischen (Gluten klumpt sofort, wenn es pur auf Wasser trifft). Salz untermischen.",
+        "day": "Abends"
+      },
+      {
+        "text": "Hefe im Wasser auflösen, zusammen mit dem Quark zur Trockenmischung geben. 5-6 Min. langsam mischen, dann 2-3 Min. schneller – nur bis der Teig glatt ist, nicht auskneten wie normalen Weizenteig.",
+        "day": null
+      },
+      {
+        "text": "Teig in eine geölte Wanne geben. Nach 45 Min. einmal rundum dehnen und falten, nach weiteren 45 Min. ein zweites Mal.",
+        "day": null
+      },
+      {
+        "text": "Wanne verschließen und 8-12 Std. bei 4-5°C in den Kühlschrank. Der Teig sollte morgens deutlich aufgegangen und blasig sein.",
+        "day": null
+      },
+      {
+        "text": "Ofen mit Backstahl auf 240°C Ober-/Unterhitze vorheizen, mind. 45 Min. Der Teig bleibt so lange kalt – kalt lässt er sich am saubersten abstechen.",
+        "day": "Morgens"
+      },
+      {
+        "text": "Teig auf die bemehlte Fläche kippen, sanft zu einem Rechteck (ca. 2-3 cm dick) drücken, Gas möglichst drinlassen. Mit der Teigkarte 5 Stücke abstechen, Schnittkante nach oben auf Backpapier setzen.",
+        "day": null
+      },
+      {
+        "text": "Einschießen und kräftig bedampfen. 10 Min. bei 240°C, dann Dampf ablassen, auf 210°C reduzieren und 8-10 Min. goldbraun ausbacken. Auf dem Gitter auskühlen lassen.",
+        "day": null
+      }
+    ]
+  },
+  {
+    "title": "Erdiges Karotten-Powerbrot",
+    "author": "Marcel Paa (Basis), eigene Optimierung",
+    "category": "Backen",
+    "sourceUrl": "",
+    "notes": "Eigene Optimierung (Juli 2026) auf Basis von Marcel Paas 'Powerbrot mit Saaten und Karotten': Roggenanteil verdoppelt und Weizensauer durch Roggen-Anstellgut ersetzt, Röstmehl + geröstetes Altbrot im Quellstück für dunkle Röstaromen, Zuckerrübensirup statt Süße, keine Hefe (reine Sauerteigführung), Karotte auf 100g reduziert, kräftig ausgebacken inkl. 10 Min. ohne Form. Varianten: 5g gemahlener Koriander + 3g Fenchel im Quellstück; 100g Wasser im Vorteig durch Schwarzbier ersetzen; Vorteig zweistufig führen (erst warm für Trieb, dann kühl für Säure). Konsistenz-Check Hauptteig: soll schwer-zäh vom Löffel reißen, nicht fließen – wirkt er zu flüssig, beim nächsten Mal 80-100g Wasser im Vorteig reduzieren.",
+    "baseServings": 1,
+    "servingsUnit": "Kastenbrot (~2 kg Teigeinlage), Form 30×10×9 cm",
+    "ingredients": [
+      {
+        "amount": 780,
+        "unit": "g",
+        "name": "Wasser, handwarm",
+        "group": "Vorteig"
+      },
+      {
+        "amount": 400,
+        "unit": "g",
+        "name": "Dinkelvollkornmehl",
+        "group": "Vorteig"
+      },
+      {
+        "amount": 400,
+        "unit": "g",
+        "name": "Roggenvollkornmehl",
+        "group": "Vorteig"
+      },
+      {
+        "amount": 40,
+        "unit": "g",
+        "name": "Roggen-Anstellgut, aktiv (Trieb-Sauer)",
+        "group": "Vorteig"
+      },
+      {
+        "amount": 260,
+        "unit": "g",
+        "name": "Wasser",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 10,
+        "unit": "g",
+        "name": "Salz",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 50,
+        "unit": "g",
+        "name": "Altbrot, dunkel geröstet und gemahlen",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 30,
+        "unit": "g",
+        "name": "Roggenmehl, dunkel geröstet (Röstmehl)",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 40,
+        "unit": "g",
+        "name": "Sesamsamen, geröstet",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 40,
+        "unit": "g",
+        "name": "Sonnenblumenkerne, geröstet",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 40,
+        "unit": "g",
+        "name": "Leinsamen, geröstet",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 40,
+        "unit": "g",
+        "name": "Kürbiskerne, geröstet",
+        "group": "Quellstück"
+      },
+      {
+        "amount": 100,
+        "unit": "g",
+        "name": "Karotte, gerieben",
+        "group": null
+      },
+      {
+        "amount": 200,
+        "unit": "g",
+        "name": "Dinkelvollkornmehl",
+        "group": null
+      },
+      {
+        "amount": 10,
+        "unit": "g",
+        "name": "Salz",
+        "group": null
+      },
+      {
+        "amount": 20,
+        "unit": "g",
+        "name": "Zuckerrübensirup (oder inaktives Gerstenmalz)",
+        "group": null
+      },
+      {
+        "amount": null,
+        "unit": "etwas",
+        "name": "Sesam, Sonnenblumenkerne, Leinsamen zum Bestreuen",
+        "group": "Dekoration"
+      }
+    ],
+    "steps": [
+      {
+        "text": "Alle Saaten bei 180°C Ober-/Unterhitze ca. 15 Min. rösten, bis sie deutlich gebräunt sind und intensiv nussig duften (Leinsamen im Blick behalten). Vollständig auskühlen lassen.",
+        "day": "Tag 1"
+      },
+      {
+        "text": "30g Roggenmehl in einer trockenen Pfanne bei mittlerer Hitze unter ständigem Rühren ca. 7 Min. rösten, bis es haselnussbraun ist und malzig duftet. Auskühlen lassen.",
+        "day": null
+      },
+      {
+        "text": "Sauerteig-Vorteig: Anstellgut in 780g Wasser aufschlämmen, beide Mehle klumpenfrei einmischen. Abgedeckt bei Raumtemperatur 10-12 Std. reifen lassen (für mehr Säure die letzten Stunden kühler bei 18-20°C).",
+        "day": null
+      },
+      {
+        "text": "Quellstück (parallel ansetzen): geröstete Saaten, Salz, Altbrot und Röstmehl mit 260g Wasser verrühren, abgedeckt parallel zum Vorteig 10-12 Std. quellen lassen.",
+        "day": null
+      },
+      {
+        "text": "Hauptteig mischen: Karotte zum Vorteig reiben. Quellstück, Dinkelvollkornmehl, Salz und Sirup zugeben, klumpenfrei vermischen. Teig soll schwer-zäh vom Löffel reißen, nicht fließen.",
+        "day": "Tag 2"
+      },
+      {
+        "text": "Teig in die gut gefettete und bemehlte Kastenform füllen, mit Saaten bestreuen. Bei Raumtemperatur 60-90 Min. gären lassen, bis der Teig sichtbar gewölbt ist und erste Poren zeigt. Ofen rechtzeitig auf 250°C vorheizen.",
+        "day": null
+      },
+      {
+        "text": "Bei 250°C einschießen, kräftig bedampfen, sofort auf 210°C reduzieren. Nach 20 Min. Dampf ablassen bzw. Tür kurz öffnen.",
+        "day": null
+      },
+      {
+        "text": "Bei 210°C weitere 55-60 Min. ausbacken (wird die Oberfläche zu dunkel, nach ca. 50 Min. ein leeres Blech in die oberste Schiene schieben). Ziel-Kerntemperatur 96-98°C.",
+        "day": null
+      },
+      {
+        "text": "Brot aus der Form lösen und 10 Min. ohne Form direkt auf Rost/Backstahl fertigbacken – ergibt eine rundum dunkle, röstaromatische Kruste. Auf einem Gitter vollständig auskühlen lassen.",
+        "day": null
+      },
+      {
+        "text": "12-24 Std. anschnittfrei reifen lassen – die erdigen Röstaromen entwickeln sich erst am Folgetag voll.",
+        "day": null
+      }
+    ]
   }
 ]
